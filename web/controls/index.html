@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <p>
+        <button onclick="left()">
+            left
+        </button>
+
+        <button onclick="action()">
+            action
+        </button>
+
+        <button onclick="right()">
+            right
+        </button>
+    </p>
+</body>
+
+<script>
+    function left() {
+        fetch('/left').then(res => console.log(res));
+    };
+
+    function right() {
+        fetch('/right').then(res => console.log(res));
+    };
+
+    function action() {
+        fetch('/action').then(res => console.log(res));
+    };
+</script>
+
+</html>
