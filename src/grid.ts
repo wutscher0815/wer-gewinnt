@@ -11,12 +11,12 @@ export class Grid {
     }
 
     set(i: number, j: number, color: string): string {
-        if (color && color.match(/#[0-9|A-F][0-9|A-F][0-9|A-F]([0-9|A-F][0-9|A-F][0-9|A-F])?/i) && (color.length === 7 || color.length === 4)) {
+        if (color && color != null && color.match(/#[0-9|A-F][0-9|A-F][0-9|A-F]([0-9|A-F][0-9|A-F][0-9|A-F])?/i) && (color.length === 7 || color.length === 4)) {
             this.data[i][j] = color;
             return color;
         } else {
-            if (color) {
-                throw new Error('invalid color hex string');
+            if (color && color != null) {
+                throw new Error('invalid color hex string: ' + color);
             }
             const old = this.data[i][j]
             this.data[i][j] = null;

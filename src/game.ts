@@ -1,4 +1,5 @@
 import { grid, Grid, rows, cols, GridItem } from "./grid";
+import { setTimeout } from "timers";
 
 const fallAnimationTime = 50;
 
@@ -26,13 +27,11 @@ export class WerGewinnt {
     }
 
     private win() {
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                grid.set(i, j, this.players[this.currentPlayer]);
-            }
-        }
+        let indices = Array.from({ length: rows * cols }).map((_, i) => ({ i, r: Math.random() })).sort((a, b) => a.r > b.r && 1 || a.r == b.r && 0 || -1).map(e => e.i);
+        indices.forEach((i, j) => setTimeout(() => grid.set(Math.floor(i / rows), i % cols, this.players[this.currentPlayer]), 1500 / (rows * cols)))
+
         grid.update();
-        setTimeout(() => { this.init() }, 5000)
+        setTimeout(() => { this.init() }, 3000)
 
     }
 
@@ -40,7 +39,6 @@ export class WerGewinnt {
         this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
         this.setCursor();
     }
-
 
 
     private setCursor() {
@@ -101,7 +99,6 @@ export class WerGewinnt {
         for (let items of series) {
             let winnigItems: GridItem[] = []
             let lastColor = null;
-            console.log(items.map(e => e.color));
             for (let i = 0; i < items.length; i++) {
                 if (items[i].color) {
                     if (lastColor && items[i].color === lastColor) {
