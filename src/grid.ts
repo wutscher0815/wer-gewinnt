@@ -38,23 +38,26 @@ export class Grid {
         return colsArray;
     }
     get diagonalsUp(): GridItem[][] {
-        let [firstX, firstY] = [0, 0];
+        let [firstX, firstY] = [rows - 1, cols - 1];
         let diagonals: GridItem[][] = [];
 
-        while (firstY + 1 < rows || firstX < cols) {
+        while (firstY || firstX) {
             let [x, y] = [firstX, firstY];
             let diagonal = []
-            while (x < rows && y) {
+            while (x >= 0 && y < rows) {
+                console.log(x + ' ' + y);
                 diagonal.push({ color: this.data[x][y], i: x, j: y });
-                x++;
-                y--;
+                x--;
+                y++;
             }
             diagonals.push(diagonal);
 
-            if (firstY + 1 < rows) {
-                firstY++;
+
+            if (firstY > 0) {
+                firstY--;
             } else {
-                firstX++;
+                firstX--;
+                console.log(firstX)
             }
         }
         return diagonals;
@@ -67,9 +70,9 @@ export class Grid {
         while (firstY > 0 || firstX < cols) {
             let [x, y] = [firstX, firstY];
             let diagonal = [];
-            while (x < rows && y < cols) {
+            while (x < cols && y < rows) {
                 diagonal.push({ color: this.data[x][y], i: x, j: y });
-                x++;
+                x++
                 y++;
             }
 

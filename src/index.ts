@@ -38,7 +38,7 @@ const wss = new WebSocket.Server({ server: webSocketServer }); wss.on('connectio
     console.log('ws client connected');
 
     //send immediatly a feedback to the incoming connection    
-    ws.send(JSON.stringify(grid.toJSON()));
+    ws.send(grid.toJSON());
 });
 
 grid.registerUpdate(() => {

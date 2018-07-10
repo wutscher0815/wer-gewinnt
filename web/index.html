@@ -1,0 +1,47 @@
+<html>
+
+<body>
+    <style>
+        .row {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .col {
+            flex-grow: 1;
+        }
+
+        grid {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+    </style>
+    <grid> </grid>
+    <script>
+        var exampleSocket = new WebSocket("ws:/" + location.host + '/', "protocolOne");
+        exampleSocket.onmessage = event => {
+            const root = document.querySelector('grid');
+            while (root.firstChild) {
+                root.removeChild(root.firstChild);
+            }
+
+            console.log(event);
+
+            JSON.parse(event.data).forEach(line => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                root.appendChild(row);
+                line.forEach(pixel => {
+                    const col = document.createElement('div');
+                    col.classList.add('col');
+                    col.style.backgroundColor = pixel || '#000';
+                    row.appendChild(col);
+                });
+            });
+
+        }
+    </script>
+</body>
+
+</html>

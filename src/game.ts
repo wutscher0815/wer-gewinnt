@@ -1,6 +1,6 @@
 import { grid, Grid, rows, cols, GridItem } from "./grid";
 
-const fallAnimationTime = 200;
+const fallAnimationTime = 50;
 
 export class WerGewinnt {
     grid: Grid = grid;
@@ -99,11 +99,9 @@ export class WerGewinnt {
 
 
         for (let items of series) {
-
-
             let winnigItems: GridItem[] = []
             let lastColor = null;
-
+            console.log(items.map(e => e.color));
             for (let i = 0; i < items.length; i++) {
                 if (items[i].color) {
                     if (lastColor && items[i].color === lastColor) {
@@ -140,6 +138,7 @@ export class WerGewinnt {
 
         //after Animation is done change player or end game
         setTimeout(() => {
+
             let winning = this.check(grid.rows) || this.check(grid.cols) || this.check(grid.diagonalsDown) || this.check(grid.diagonalsDown);
             if (winning) {
                 let time = grid.blink(winning);
