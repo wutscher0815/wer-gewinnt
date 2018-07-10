@@ -43,8 +43,8 @@ const wss = new WebSocket.Server({ server: webSocketServer }); wss.on('connectio
 
 grid.registerUpdate(() => {
     wss.clients.forEach(client => client.send(grid.toJSON()));
-    JSON.parse(grid.toJSON()).map((row: string[]) => row.map(item => item == '#F00' && '+' || item == '#0F0' && '-' || ' ')).forEach((row: string[]) => console.log(row))
-    console.log('------------------------------------')
+    // JSON.parse(grid.toJSON()).map((row: string[]) => row.map(item => item == '#F00' && '+' || item == '#0F0' && '-' || ' ')).forEach((row: string[]) => console.log(row))
+    // console.log('------------------------------------')
 });
 
 // for (let i = 0; i < 7; i++) {
@@ -71,6 +71,12 @@ app.get('/action', (req, res) => {
     console.log('action')
     game.action();
     res.send("action");
+});
+
+app.get('/reset', (req, res) => {
+    console.log('reset')
+    game.init();
+    res.send("reset");
 });
 
 webSocketServer.listen(process.env.PORT || 3000, () => console.log('listening on ' + (<any>webSocketServer.address()).port));

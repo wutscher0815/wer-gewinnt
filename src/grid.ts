@@ -45,7 +45,7 @@ export class Grid {
             let [x, y] = [firstX, firstY];
             let diagonal = []
             while (x >= 0 && y < rows) {
-                console.log(x + ' ' + y);
+                //console.log(x + ' ' + y);
                 diagonal.push({ color: this.data[x][y], i: x, j: y });
                 x--;
                 y++;
@@ -57,7 +57,7 @@ export class Grid {
                 firstY--;
             } else {
                 firstX--;
-                console.log(firstX)
+                //console.log(firstX)
             }
         }
         return diagonals;
@@ -109,7 +109,7 @@ export class Grid {
                         }));
             
                         Promise.all(promises).then((colors: string[]) => {
-                            console.log(colors);
+                            //console.log(colors);
                             this.update();
                             return Promise.all(items.map((item, index) => new Promise(resolve => {
                                 setTimeout(() => {

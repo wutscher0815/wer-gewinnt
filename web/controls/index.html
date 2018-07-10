@@ -1,4 +1,16 @@
 <html>
+<style>
+    button {
+        width: calc(33.33% - 10px);
+        height: 300px;
+    }
+
+    p {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+</style>
 
 <body>
     <p>
@@ -14,6 +26,16 @@
             right
         </button>
     </p>
+
+    <p>
+
+
+        <button onclick="reset()">
+            reset
+        </button>
+
+
+    </p>
 </body>
 
 <script>
@@ -27,6 +49,11 @@
 
     function action() {
         fetch('/action').then(res => console.log(res));
+    };
+
+    function reset() {
+        if (confirm('Wirklich?'))
+            fetch('/reset').then(res => console.log(res));
     };
 </script>
 
