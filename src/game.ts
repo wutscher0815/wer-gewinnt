@@ -27,11 +27,16 @@ export class WerGewinnt {
     }
 
     private win() {
+        let timeout = 3000;
         let indices = Array.from({ length: rows * cols }).map((_, i) => ({ i, r: Math.random() })).sort((a, b) => a.r > b.r && 1 || a.r == b.r && 0 || -1).map(e => e.i);
-        indices.forEach((i, j) => setTimeout(() => grid.set(Math.floor(i / rows), i % cols, this.players[this.currentPlayer]), 1500 / (rows * cols)))
+        indices.forEach((i, j) => setTimeout(() => {
+            grid.set(Math.floor(i / rows), i % cols, this.players[this.currentPlayer]);
+            if (j % 5 == 0 || j == rows * cols - 1)
+                grid.update();
+        }, j * timeout / (2 * rows * cols)))
 
         grid.update();
-        setTimeout(() => { this.init() }, 3000)
+        setTimeout(() => { this.init() }, timeout)
 
     }
 
@@ -43,7 +48,7 @@ export class WerGewinnt {
 
     private setCursor() {
         this.removeCursor();
-        console.log('cursor:' + this.cursor)
+        // console.log('cursor:' + this.cursor)
         grid.set(0, this.cursor, this.players[this.currentPlayer]);
         this.playable = true;
     }
@@ -73,7 +78,6 @@ export class WerGewinnt {
 
     private drop(): number {
         let col = grid.cols[this.cursor];
-        console.log(col.map(c => c.color));
         let lastIndex = 0;
 
         if (col[1].color) {
@@ -103,9 +107,9 @@ export class WerGewinnt {
                 if (items[i].color) {
                     if (lastColor && items[i].color === lastColor) {
                         winnigItems.push(items[i]);
-                        console.log('winning.length:' + winnigItems.length);
+                        //console.log('winning.length:' + winnigItems.length);
                         if (winnigItems.length == 4) {
-                            console.log(winnigItems);
+                            //  console.log(winnigItems);
                             return winnigItems;
                         }
                     } else {
@@ -131,7 +135,7 @@ export class WerGewinnt {
         this.playable = false;
 
         let lastIndex = this.drop();
-        console.log(lastIndex);
+        // console.log(lastIndex);
 
         //after Animation is done change player or end game
         setTimeout(() => {
@@ -139,7 +143,7 @@ export class WerGewinnt {
             let winning = this.check(grid.rows) || this.check(grid.cols) || this.check(grid.diagonalsDown) || this.check(grid.diagonalsDown);
             if (winning) {
                 let time = grid.blink(winning);
-                console.log('winning timeout:' + time)
+                // console.log('winning timeout:' + time)
                 setTimeout(() => this.win(), time);
             }
             else {
