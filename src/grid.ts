@@ -15,8 +15,8 @@ export class Grid {
             this.data[i][j] = color;
             return color;
         } else {
-            if (color != '#000') {
-                throw new Error('invalid color hex string');
+            if (color && color != '#000') {
+                throw new Error('invalid color hex string: ' + color);
             }
             const old = this.data[i][j]
             this.data[i][j] = '#000';

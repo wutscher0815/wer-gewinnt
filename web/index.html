@@ -19,45 +19,29 @@
 
         }
     </style>
-    <grid>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-    </grid>
+    <grid> </grid>
 
     <script>
         var exampleSocket = new WebSocket("ws:/" + location.host + '/', "protocolOne");
-        exampleSocket.onmessage = function (event) {
-            const root = Document.querySelector('grid');
+        exampleSocket.onmessage = event => {
+            const root = document.querySelector('grid');
             while (root.firstChild) {
                 root.removeChild(root.firstChild);
             }
 
+            console.log(event);
+
+            JSON.parse(event.data).forEach(line => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                root.appendChild(row);
+                line.forEach(pixel => {
+                    const col = document.createElement('div');
+                    col.classList.add('col');
+                    col.style.backgroundColor = pixel || '#000';
+                    row.appendChild(col);
+                });
+            });
 
         }
     </script>

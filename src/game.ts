@@ -51,7 +51,7 @@ export class WerGewinnt {
     }
 
     private removeCursor() {
-        grid.rows[0].forEach((_, i) => grid.set(0, i, null));
+        grid.rows[0].forEach((_, i) => grid.set(0, i, '#000'));
         this.playable = false;
     }
 
@@ -102,11 +102,11 @@ export class WerGewinnt {
 
 
             let winnigItems: GridItem[] = []
-            let lastColor = null;
+            let lastColor = '#000';
 
             for (let i = 0; i < items.length; i++) {
                 if (items[i].color) {
-                    if (lastColor && items[i].color === lastColor) {
+                    if (lastColor !== '#000' && items[i].color === lastColor) {
                         winnigItems.push(items[i]);
                         console.log('winning.length:' + winnigItems.length);
                         if (winnigItems.length == 4) {
