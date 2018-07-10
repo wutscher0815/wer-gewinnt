@@ -1,7 +1,7 @@
 import { grid, Grid, rows, cols, GridItem } from "./grid";
 import { setTimeout } from "timers";
 
-const fallAnimationTime = 50;
+const fallAnimationTime = 120;
 
 export class WerGewinnt {
     grid: Grid = grid;
@@ -127,6 +127,8 @@ export class WerGewinnt {
     }
 
     action() {
+    this.playable = true;
+
         if (!(this.playable)) {
             return;
         }
@@ -149,8 +151,9 @@ export class WerGewinnt {
             else {
                 if (lastIndex) {
                     this.changePlayer();
-                    this.playable = true;
                 }
+                this.playable = true;
+
             };
             grid.update();
         }, (lastIndex + 1) * fallAnimationTime);
