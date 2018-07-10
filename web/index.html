@@ -19,7 +19,8 @@
     </style>
     <grid> </grid>
     <script>
-        var exampleSocket = new WebSocket("wss:/" + location.host + '/', "protocolOne");
+        var exampleSocket = new WebSocket(location.protocol.replace('http', 'ws') + '/' + location.host + '/',
+            "protocolOne");
         exampleSocket.onmessage = event => {
             const root = document.querySelector('grid');
             while (root.firstChild) {

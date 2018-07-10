@@ -140,7 +140,7 @@ export class WerGewinnt {
         //after Animation is done change player or end game
         setTimeout(() => {
 
-            let winning = this.check(grid.rows) || this.check(grid.cols) || this.check(grid.diagonalsDown) || this.check(grid.diagonalsDown);
+            let winning = this.check(grid.rows) || this.check(grid.cols) || this.check(grid.diagonalsUp) || this.check(grid.diagonalsDown);
             if (winning) {
                 let time = grid.blink(winning);
                 // console.log('winning timeout:' + time)
