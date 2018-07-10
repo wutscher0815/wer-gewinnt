@@ -1,0 +1,66 @@
+<html>
+
+<body>
+    <style>
+        .row {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .col {
+            flex-grow: 1;
+        }
+
+        grid {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+
+        }
+    </style>
+    <grid>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+    </grid>
+
+    <script>
+        var exampleSocket = new WebSocket("ws:/" + location.host + '/', "protocolOne");
+        exampleSocket.onmessage = function (event) {
+            const root = Document.querySelector('grid');
+            while (root.firstChild) {
+                root.removeChild(root.firstChild);
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

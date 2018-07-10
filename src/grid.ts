@@ -4,22 +4,22 @@ import { setTimeout } from "timers";
 export const [rows, cols] = [7, 7]
 
 export class Grid {
-    private data: string[][] = Array.from({ length: rows }).map(() => Array.from({ length: cols }).map(e => null));
+    private data: string[][] = Array.from({ length: rows }).map(() => Array.from({ length: cols }).map(e => '#000'));
     private updateFunction: Function = () => '';
     constructor() {
 
     }
 
     set(i: number, j: number, color: string): string {
-        if (color && color.match(/#[0-9|A-F][0-9|A-F][0-9|A-F]([0-9|A-F][0-9|A-F][0-9|A-F])?/i) && (color.length === 7 || color.length === 4)) {
+        if (color && color != '#000' && color.match(/#[0-9|A-F][0-9|A-F][0-9|A-F]([0-9|A-F][0-9|A-F][0-9|A-F])?/i) && (color.length === 7 || color.length === 4)) {
             this.data[i][j] = color;
             return color;
         } else {
-            if (color) {
+            if (color != '#000') {
                 throw new Error('invalid color hex string');
             }
             const old = this.data[i][j]
-            this.data[i][j] = null;
+            this.data[i][j] = '#000';
             return old;
         }
     }
@@ -89,7 +89,7 @@ export class Grid {
 
         while (count--) {
             setTimeout(() => items.map(item => {
-                let color = this.set(item.i, item.j, null);
+                let color = this.set(item.i, item.j, '#000');
                 this.update();
                 setTimeout(() => {
                     this.set(item.i, item.j, color);
@@ -126,12 +126,12 @@ export class Grid {
 
     move(i: number, j: number, k: number, l: number) {
         const color = this.data[i][j];
-        this.set(i, j, null);
+        this.set(i, j, '#000');
         this.set(k, l, color);
     }
 
     reset() {
-        this.data = Array.from({ length: rows }).map(() => Array.from({ length: cols }).map(e => null));
+        this.data = Array.from({ length: rows }).map(() => Array.from({ length: cols }).map(e => '#000'));
     }
 
     registerUpdate(callback: Function) {
