@@ -6,7 +6,7 @@ const fallAnimationTime = 120;
 export class WerGewinnt {
     grid: Grid = grid;
     cursor = 0;
-    players = ['#F00', '#0F0'];
+    players = ['#499F68', '#B4654A'];
     currentPlayer = 0;
     moveCount = 0;
     playable: boolean;
@@ -127,7 +127,7 @@ export class WerGewinnt {
     }
 
     action() {
-    this.playable = true;
+        this.playable = true;
 
         if (!(this.playable)) {
             return;
