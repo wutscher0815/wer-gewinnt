@@ -40,21 +40,28 @@
 </body>
 
 <script>
+    var exampleSocket = new WebSocket(location.protocol.replace('http', 'ws') + '/' + location.host + '/',
+        "protocolOne");
+
+    exampleSocket.onmessage = evt => console.log(evt.data);
+
     function left() {
-        fetch('/left').then(res => console.log(res));
+        exampleSocket.send('left')
     };
 
     function right() {
-        fetch('/right').then(res => console.log(res));
+        exampleSocket.send('right')
+
     };
 
     function action() {
-        fetch('/action').then(res => console.log(res));
+        exampleSocket.send('action')
     };
 
     function reset() {
         if (confirm('Wirklich?'))
-            fetch('/reset').then(res => console.log(res));
+            exampleSocket.send('reset')
+
     };
 </script>
 

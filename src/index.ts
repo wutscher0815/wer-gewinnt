@@ -25,6 +25,21 @@ const wss = new WebSocket.Server({ server: webSocketServer }); wss.on('connectio
     //connection is up, let's add a simple simple event
     ws.on('message', (message: string) => {
 
+
+        switch (message) {
+            case 'left':
+                game.left()
+                break;
+            case 'right':
+                game.right()
+                break;
+            case 'action':
+                game.action()
+                break;
+            case 'reset':
+                game.init()
+                break;
+        }
         //log the received message and send it back to the client
         console.log('received: %s', message);
         ws.send(grid.toJSON());
